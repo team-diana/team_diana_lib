@@ -3,6 +3,7 @@
  */
 
 #include "team_diana_lib/geometry/vectors.h"
+#include "team_diana_lib/strings/strings.h"
 
 #include <functional>
 #include <algorithm>
@@ -54,7 +55,29 @@ bool copyVector3Test() {
   return true;
 }
 
+bool toStringTest() {
+  string s = toString("hello ", 1);
+
+  if(s != "hello 1") {
+    cerr << " the string was not correct. result was " << s << endl;
+    return false;
+  }
+
+  class WithoutOStreamSupport {
+    int v;
+  };
+
+  // This should cause a compile time exception
+  // s = toString(WithoutOStreamSupport() );
+
+  return true;
+}
+
 int main(int argc, char** argv) {
-  vector<function<bool()>> tests = { copyVector3Test };
+  vector<function<bool()>> tests = {
+    copyVector3Test,
+    toStringTest
+  };
+
   run_tests(tests);
 }
