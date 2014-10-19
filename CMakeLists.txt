@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(team_diana_lib)
 
+set(CMAKE_CXX_FLAGS "-std=c++14 -Wall -Werror ${CMAKE_CXX_FLAGS}")
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
@@ -80,9 +82,9 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES team_diana_lib
-#  CATKIN_DEPENDS roscpp rospy std_msgs
+  INCLUDE_DIRS include
+  LIBRARIES team_diana_lib
+  CATKIN_DEPENDS roscpp rospy std_msgs
 #  DEPENDS system_lib
 )
 
@@ -92,27 +94,32 @@ catkin_package(
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
-# include_directories(include)
+include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
 ## Declare a cpp library
-# add_library(team_diana_lib
-#   src/${PROJECT_NAME}/team_diana_lib.cpp
-# )
+add_library(team_diana_lib
+  src/logging/logging.cpp
+)
 
 ## Declare a cpp executable
-# add_executable(team_diana_lib_node src/team_diana_lib_node.cpp)
+add_executable(test_main src/main.cpp)
 
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(team_diana_lib_node team_diana_lib_generate_messages_cpp)
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(team_diana_lib_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(team_diana_lib
+   ${catkin_LIBRARIES}
+)
+
+target_link_libraries(test_main
+   ${catkin_LIBRARIES}
+   team_diana_lib
+)
 
 #############
 ## Install ##
