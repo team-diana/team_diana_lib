@@ -1,6 +1,6 @@
 # team_diana_lib
 
-C++14 utilities library
+C++14 utilities library for [ROS](http://www.ros.org)
 
 ## TODO:
 
