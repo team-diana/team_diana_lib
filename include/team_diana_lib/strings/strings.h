@@ -6,30 +6,54 @@
 #include <string>
 #include <sstream>
 
-using namespace std;
+namespace Td {
 
-inline
-void concatStream(ostream & stream)
-{}
+  inline
+  void put(std::ostream & stream) {}
 
-template<typename T, typename ... Args>
-ostream& concatStream(ostream & os, T && arg, Args && ... args)
-{
-  static_assert_supports_ostream<T>();
+  /**
+  * @brief Appends each argument to the stream, using the argument's operator<<
+  *
+  * This function will stop at compile time with an error message if the
+  * argument is not supported.
+  *
+  * @param os ostream that will be used.
+  * @param args argument to be appended.
+  * @returns the updated ostream.
+  **/
+  template<typename T, typename ... Args>
+  std::ostream& put(std::ostream & os, T && arg, Args && ... args)
+  {
+    static_assert_supports_ostream<T>();
 
-  os << std::forward<T>(arg);
-  concatStream(os, std::forward<Args>(args) ...);
+    os << std::forward<T>(arg);
+    put(os, std::forward<Args>(args) ...);
 
-  return os;
+    return os;
+  }
+
+  /**
+  * @brief Creates a string that concatenates each arguments
+  *
+  * This function will use each argument's operator<< for concatenation.
+  * Since most types implements operator<<, this function can be used like the
+  * toString function of many other programming languages.
+  *
+  * This function will stop at compile time with an error message if the
+  * argument is not supported.
+  *
+  * @param os ostream that will be used.
+  * @param args argument to be appended.
+  * @returns the updated ostream.
+  **/
+  template<typename ... Args>
+  std::string toString(Args && ... args) {
+    std::ostringstream oss;
+    put(oss, std::forward<Args>(args) ...);
+
+    return oss.str();
+  }
+
 }
-
-template<typename ... Args>
-string toString(Args && ... args) {
-  ostringstream oss;
-  concatStream(oss, std::forward<Args>(args) ...);
-
-  return oss.str();
-}
-
 
 #endif

@@ -6,13 +6,13 @@
 namespace Td
 {
 
-using namespace std;
+void ros_info(const std::string& msg);
 
-// Log function instead of ROS macros
-void ros_info(const string& msg);
-void ros_warn(const string& msg);
-void ros_error(const string& msg);
-void ros_fatal(const string& msg);
+void ros_warn(const std::string& msg);
+
+void ros_error(const std::string& msg);
+
+void ros_fatal(const std::string& msg);
 
 }
 

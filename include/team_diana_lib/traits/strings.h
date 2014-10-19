@@ -5,22 +5,42 @@
 #include <iostream>
 #include <array>
 
-template <typename T>
-class supports_ostream
-{
-  static std::ostream &s;
-  static T& t;
+namespace Td {
 
-  template <class U> static auto test(const U u) -> decltype(s << u, char(0)) { }
-  static std::array<char, 2> test(...) { return std::array<char, 2>(); }
+  /**
+  * @brief value is true if T has
+  * operator<<(std::ostream& stream, const T& matrix)
+  *
+  * @tparam T type to test
+  */
+  template <typename T>
+  class supports_ostream
+  {
+    static std::ostream &s;
+    static T& t;
 
-public:
-  static const bool value = (sizeof(test(t)) == 1);
-};
+    template <class U> static auto test(const U u)
+      -> decltype(s << u, char(0)) { }
+    static std::array<char, 2> test(...)
+      { return std::array<char, 2>(); }
+
+  public:
+    static const bool value = (sizeof(test(t)) == 1);
+  };
 
 
-template <typename T>  void static_assert_supports_ostream() {
-    static_assert(supports_ostream<T>::value, " the type T does not have an operator<<(std::ostream& stream, const T& t) ");
+  /**
+  * @brief stop the compilation if T does not support
+  * operator<<(std::ostream& stream, const T& matrix)
+  *
+  * @tparam T type to test
+  */
+  template <typename T>  void static_assert_supports_ostream() {
+      static_assert(supports_ostream<T>::value,
+        "the type T does not have an "
+        "operator<<(std::ostream& stream, const T& t)");
+  }
+
 }
 
 #endif
