@@ -56,7 +56,7 @@ bool copyVector3Test() {
 }
 
 bool toStringTest() {
-  string s = toString("hello ", 1);
+  string s = Td::toString("hello ", 1);
 
   if(s != "hello 1") {
     cerr << " the string was not correct. result was " << s << endl;
@@ -68,7 +68,7 @@ bool toStringTest() {
   };
 
   // This should cause a compile time exception
-  // s = toString(WithoutOStreamSupport() );
+  // s = Td::toString(WithoutOStreamSupport() );
 
   return true;
 }
