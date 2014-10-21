@@ -4,6 +4,7 @@
 
 #include "team_diana_lib/geometry/vectors.h"
 #include "team_diana_lib/strings/strings.h"
+#include "team_diana_lib/math/math.h"
 
 #include <functional>
 #include <algorithm>
@@ -73,10 +74,23 @@ bool toStringTest() {
   return true;
 }
 
+bool sgnTest() {
+  double v1 = -0.01;
+
+  double sgnv1 = Td::sgn(v1);
+  if(sgnv1 >= 0) {
+    cerr << "the sign of v1 was wrong " << sgnv1 << endl;
+    return false;
+  }
+
+  return true;
+}
+
 int main(int argc, char** argv) {
   vector<function<bool()>> tests = {
     copyVector3Test,
-    toStringTest
+    toStringTest,
+    sgnTest
   };
 
   run_tests(tests);
