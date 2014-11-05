@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(team_diana_lib)
 
-set(CMAKE_CXX_FLAGS "-std=c++14 -Wall -Werror ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Werror ${CMAKE_CXX_FLAGS}")
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)

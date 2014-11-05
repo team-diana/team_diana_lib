@@ -16,7 +16,8 @@ bool run_tests(vector<function<bool()>> tests) {
   vector<bool> results(tests.size());
 
   cout << "Starting " << tests.size() << " tests. " << endl;
-  std::transform(tests.begin(), tests.end(), results.begin(), [](auto f) { return f(); });
+  typedef typename decltype(tests)::value_type FuncT;
+  std::transform(tests.begin(), tests.end(), results.begin(), [](FuncT f) { return f(); });
 
   vector<bool> failed;
   std::copy_if(results.begin(), results.end(), failed.begin(), [](bool v) { return v == false; });
@@ -64,8 +65,11 @@ bool toStringTest() {
     return false;
   }
 
-  class WithoutOStreamSupport {
-    int v;
+  // used struct instead of class to make the member public
+  // and therefore avoid the clang warning-Wunused-private-field
+  // (private field 'v' is not used)
+  struct WithoutOStreamSupport {
+	  int v;
   };
 
   // This should cause a compile time exception
