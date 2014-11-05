@@ -22,7 +22,7 @@ bool run_tests(vector<function<bool()>> tests) {
   vector<bool> failed;
   std::copy_if(results.begin(), results.end(), failed.begin(), [](bool v) { return v == false; });
 
-  cout << "Runned " << results.size() << " tests. " << endl;
+  cout << "Ran " << results.size() << " tests. " << endl;
 
   if ( failed.size() == 0 )
     cout << "All test were OK " << endl;
