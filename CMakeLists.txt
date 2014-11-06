@@ -167,5 +167,3 @@ install(DIRECTORY include/${PROJECT_NAME}/
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-
-add_subdirectory(include/team_diana_lib/math)
