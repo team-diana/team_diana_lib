@@ -4,6 +4,7 @@
 
 #include "team_diana_lib/geometry/vectors.h"
 #include "team_diana_lib/strings/strings.h"
+#include "team_diana_lib/strings/iterables.h"
 #include "team_diana_lib/math/math.h"
 
 #include <functional>
@@ -78,6 +79,33 @@ bool toStringTest() {
   return true;
 }
 
+bool iterableToStringTest() {
+  int intVec[] = {1, 2, 3, 4};
+  std::vector<char> charVec {'a', 'b', 'c'};
+
+  string intVecStr = Td::iterableToString(intVec, ":");
+  if("1:2:3:4" != intVecStr) {
+    cerr << "intVec was not converted to a string correctly, result was: " << intVecStr << endl;
+    return false;
+  }
+
+//   const char* str = "hello";
+//   TODO: will not compile, add support for string.
+//   string strStr = Td::iterableToString(str);
+//   if("h e l l o" != strStr) {
+//     cerr << "strStr was not converted to a string correctly, result was: " << strStr << endl;
+//     return false;
+//   }
+
+  string charVecString = Td::iterableToString(charVec, "<o>");
+  if("a<o>b<o>c" != charVecString) {
+    cerr << "charVec was not converted to a string correctly, result was: " << charVecString << endl;
+    return false;
+  }
+
+  return true;
+}
+
 bool sgnTest() {
   double v1 = -0.01;
 
@@ -94,6 +122,7 @@ int main(int argc, char** argv) {
   vector<function<bool()>> tests = {
     copyVector3Test,
     toStringTest,
+    iterableToStringTest,
     sgnTest
   };
 
