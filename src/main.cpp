@@ -6,6 +6,7 @@
 #include "team_diana_lib/strings/strings.h"
 #include "team_diana_lib/strings/iterables.h"
 #include "team_diana_lib/math/math.h"
+#include "team_diana_lib/async/futures.h"
 
 #include <functional>
 #include <algorithm>
@@ -118,12 +119,30 @@ bool sgnTest() {
   return true;
 }
 
+bool futureContinuationTest() {
+  std::future<std::string> A = std::async(std::launch::deferred, []() {
+    return std::string("2");
+  });
+
+  std::future<int> B = Td::then(std::move(A), [](std::string s) {
+    int v = atoi(s.c_str());
+    return v*v;
+  });
+
+  if (B.get() != 4) {
+    return false;
+  }
+
+  return true;
+}
+
 int main(int argc, char** argv) {
   vector<function<bool()>> tests = {
     copyVector3Test,
     toStringTest,
     iterableToStringTest,
-    sgnTest
+    sgnTest,
+    futureContinuationTest
   };
 
   run_tests(tests);
