@@ -102,11 +102,13 @@ include_directories(
 ## Declare a cpp library
 add_library(team_diana_lib
   src/logging/logging.cpp
+  src/strings/bit_printer.cpp
 )
 
 ## Declare a cpp executable
 add_executable(test_main src/main.cpp)
 
+add_executable(test src/test.cpp)
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(team_diana_lib_node team_diana_lib_generate_messages_cpp)

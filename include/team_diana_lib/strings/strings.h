@@ -9,7 +9,8 @@
 namespace Td {
 
   inline
-  void put(std::ostream & stream) {}
+  void put(std::ostream & stream) {
+  }
 
   /**
   * @brief Appends each argument to the stream, using the argument's operator<<

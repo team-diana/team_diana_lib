@@ -5,6 +5,7 @@
 #include "team_diana_lib/geometry/vectors.h"
 #include "team_diana_lib/strings/strings.h"
 #include "team_diana_lib/strings/iterables.h"
+#include "team_diana_lib/strings/bit_printer.h"
 #include "team_diana_lib/math/math.h"
 #include "team_diana_lib/async/futures.h"
 
@@ -136,13 +137,56 @@ bool futureContinuationTest() {
   return true;
 }
 
+bool bitStringPrinter() {
+  std::string sep4 = "0110 1001 ";
+  Td::BitPrinter<4> p4;
+
+  std::string sep4r = p4.toString<unsigned char>(0b01101001);
+
+  if(sep4r != sep4) {
+    std::cerr << "failed, was: " << sep4r;
+    return false;
+  }
+
+  std::string sep4_2 = "0110 1001 0000 1111 ";
+
+  std::string sep4_2r = p4.toString<uint16_t>(0b0110100100001111);
+
+  if(sep4_2r != sep4_2) {
+    std::cerr << "failed, was: " << sep4_2r;
+    return false;
+  }
+
+  std::string sep8 = "01101001 ";
+  Td::BitPrinter<8> p8;
+
+  std::string sep8r = p8.toString<unsigned char>(0b01101001);
+
+  if(sep8r != sep8) {
+    std::cerr << "failed, was: " << sep8r;
+    return false;
+  }
+
+  std::string sep8_2 = "01101001 00001111 ";
+
+  std::string sep8_2r = p8.toString<uint16_t>(0b0110100100001111);
+
+  if(sep8_2r != sep8_2) {
+    std::cerr << "failed, was: " << sep8_2r;
+    return false;
+  }
+
+  return true;
+}
+
 int main(int argc, char** argv) {
   vector<function<bool()>> tests = {
     copyVector3Test,
     toStringTest,
     iterableToStringTest,
     sgnTest,
-    futureContinuationTest
+    futureContinuationTest,
+    bitStringPrinter
   };
 
   run_tests(tests);
