@@ -8,6 +8,7 @@
 #include "team_diana_lib/strings/bit_printer.h"
 #include "team_diana_lib/math/math.h"
 #include "team_diana_lib/async/futures.h"
+#include "team_diana_lib/enum/enum.h"
 
 #include <functional>
 #include <algorithm>
@@ -179,6 +180,15 @@ bool bitStringPrinter() {
   return true;
 }
 
+enum class TestEnumClass {
+  A = 1,
+  B = 3
+};
+
+bool enumClassTest() {
+  return 3 == Td::to_int(TestEnumClass::B);
+}
+
 int main(int argc, char** argv) {
   vector<function<bool()>> tests = {
     copyVector3Test,
@@ -186,7 +196,8 @@ int main(int argc, char** argv) {
     iterableToStringTest,
     sgnTest,
     futureContinuationTest,
-    bitStringPrinter
+    bitStringPrinter,
+    enumClassTest
   };
 
   run_tests(tests);
