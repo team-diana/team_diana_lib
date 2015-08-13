@@ -13,7 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 ## System dependencies are found with CMake's conventions
-# find_package(Boost REQUIRED COMPONENTS system)
+find_package(Boost REQUIRED COMPONENTS system)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -98,6 +98,8 @@ include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
 )
+include_directories(${Boost_INCLUDE_DIRS})
+
 
 ## Declare a cpp library
 add_library(team_diana_lib
@@ -108,7 +110,6 @@ add_library(team_diana_lib
 ## Declare a cpp executable
 add_executable(test_main src/main.cpp)
 
-add_executable(test src/test.cpp)
 ## Add cmake target dependencies of the executable/library
 ## as an example, message headers may need to be generated before nodes
 # add_dependencies(team_diana_lib_node team_diana_lib_generate_messages_cpp)

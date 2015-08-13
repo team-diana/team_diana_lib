@@ -3,6 +3,8 @@
 
 #include "team_diana_lib/traits/strings.h"
 
+#include "boost/core/ignore_unused.hpp"
+
 #include <string>
 #include <sstream>
 
@@ -10,6 +12,7 @@ namespace Td {
 
   inline
   void put(std::ostream & stream) {
+    boost::ignore_unused(stream);
   }
 
   /**
